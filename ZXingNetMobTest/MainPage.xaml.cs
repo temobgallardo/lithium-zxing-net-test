@@ -55,9 +55,13 @@ namespace ZXingNetMobTest
       if (availableResolutions == null || availableResolutions.Count < 1)
         return new CameraResolution() { Width = 600, Height = 400 };
 
+      var bestPerformance = availableResolutions.First(r => (r.Width >= 600 && r.Width < 650) && (r.Height >= 400 && r.Height < 550));
+
       var bestOption = availableResolutions.OrderByDescending(c => c.Width).ThenByDescending(c => c.Height).FirstOrDefault();
       // Get the highest resolution on the list, highest is the last one in the list
-      return bestOption;
+
+      var worstResolution = availableResolutions[availableResolutions.Count - 1];
+      return availableResolutions[11];
     }
   }
 }
