@@ -24,6 +24,8 @@
         <Button Text="Scan"
                 Clicked="Button_ClickedAsync" />
 
+        <Slider Value="{Binding Pixels}"/>
+
         <zxing:ZXingScannerView x:Name="BarcodeScannerView"
                                 Opacity="0.9"
                                 OnScanResult="OnScanResult" />

@@ -21,13 +21,25 @@ namespace ZXingNetMobTest
       }
     }
 
+    private double pixels;
+
+    public double Pixels
+    {
+      get { return pixels; }
+      set
+      {
+        pixels = value;
+        OnPropertyChanged(nameof(Pixels));
+      }
+    }
+
     public MainPage()
     {
       InitializeComponent();
       BindingContext = this;
     }
 
-    private async void OnScanResult(Result result)
+    private void OnScanResult(Result result)
     {
       Console.WriteLine($"Barcode captured: {result.Text}");
       this.BarcodeResult = result.Text;
@@ -37,13 +49,12 @@ namespace ZXingNetMobTest
 
     private async void Button_ClickedAsync(object sender, EventArgs e)
     {
-      var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-
       this.BarcodeScannerView.Options.CameraResolutionSelector = this.SelectHighestResolutionMatchingDisplayAspectRatio;
       this.BarcodeScannerView.IsScanning = true;
 
-      //var result = await scanner.Scan();
 
+      //var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+      //var result = await scanner.Scan();
       //if (result is null) return;
 
       //BarcodeResult = result.Text;
@@ -53,15 +64,44 @@ namespace ZXingNetMobTest
     private CameraResolution SelectHighestResolutionMatchingDisplayAspectRatio(List<CameraResolution> availableResolutions)
     {
       if (availableResolutions == null || availableResolutions.Count < 1)
-        return new CameraResolution() { Width = 600, Height = 400 };
+      {
+        throw new ArgumentNullException(nameof(availableResolutions));
+      }
+     
+      var pixels = availableResolutions.Select(r => r.Width * r.Height).ToArray();
+      var seed = Pixels * 2000000;
+      // The closest to 2megapixels
+      var bestPerformanceIndex = FindIndexOfCloserToNumber((int)seed, pixels);
 
-      var bestPerformance = availableResolutions.First(r => (r.Width >= 600 && r.Width < 650) && (r.Height >= 400 && r.Height < 550));
+      return availableResolutions[bestPerformanceIndex];
+    }
 
-      var bestOption = availableResolutions.OrderByDescending(c => c.Width).ThenByDescending(c => c.Height).FirstOrDefault();
-      // Get the highest resolution on the list, highest is the last one in the list
+    /// <summary>
+    /// Compute what is the index containing the closer element to a given value
+    /// </summary>
+    /// <param name="seed">Values should be as close to this one</param>
+    /// <param name="pixels">A specific name but this is a list with values</param>
+    /// <returns>Closest element index to the seed starting from the left</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    private int FindIndexOfCloserToNumber(int seed, int[] pixels)
+    {
+      if (pixels is null) throw new ArgumentNullException(nameof(pixels));
+      if (pixels.Length == 0) throw new ArgumentException(nameof(pixels));
 
-      var worstResolution = availableResolutions[availableResolutions.Count - 1];
-      return availableResolutions[11];
+      var absolutes = new int[pixels.Length];
+      for (int i = 0; i < pixels.Length; i++)
+      {
+        absolutes[i] = Math.Abs(pixels[i] - seed);
+      }
+
+      var min = absolutes.Min();
+      for (int i = 0; i < absolutes.Length; i++)
+      {
+        if (absolutes[i] == absolutes.Min()) return i;
+      }
+
+      return -1;
     }
   }
 }
