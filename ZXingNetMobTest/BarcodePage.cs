@@ -5,7 +5,7 @@ namespace ZXingNetMobTest
 {
   public class BarcodePage : ContentPage
   {
-    ZXingBarcodeImageView barcode;
+    private readonly ZXingBarcodeImageView barcode;
 
     public BarcodePage()
     {
