@@ -22,13 +22,17 @@
                Padding="30,10,30,10" />
 
         <Button Text="Scan"
-                Clicked="Button_ClickedAsync" />
+                Clicked="ButtonScan_ClickedAsync" />
 
-        <Slider Value="{Binding Pixels}"/>
+        <!--<Picker Title="Select a resolution"
+                SelectedItem="{Binding SelectedResolution}"
+                ItemsSource="{Binding AvailableResolutions}" />
+
+        <Slider Value="{Binding Pixels}" />
 
         <zxing:ZXingScannerView x:Name="BarcodeScannerView"
                                 Opacity="0.9"
-                                OnScanResult="OnScanResult" />
+                                OnScanResult="OnScanResult" />-->
     </StackLayout>
 
 </ContentPage>

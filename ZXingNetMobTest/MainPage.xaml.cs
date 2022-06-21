@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms;
 using ZXing;
@@ -9,7 +10,10 @@ namespace ZXingNetMobTest
 {
   public partial class MainPage : ContentPage
   {
+    private double _pixels;
     private string _barcodeResult;
+    private List<CameraResolution> _availableResolutions;
+    private CameraResolution _selectedResolution;
 
     public string BarcodeResult
     {
@@ -17,19 +21,47 @@ namespace ZXingNetMobTest
       set
       {
         if (_barcodeResult != value) _barcodeResult = value;
-        OnPropertyChanged(nameof(BarcodeResult));
+        this.OnPropertyChanged(nameof(BarcodeResult));
       }
     }
 
-    private double pixels;
-
     public double Pixels
     {
-      get { return pixels; }
+      get { return _pixels; }
       set
       {
-        pixels = value;
-        OnPropertyChanged(nameof(Pixels));
+        _pixels = value;
+        this.OnPropertyChanged(nameof(Pixels));
+      }
+    }
+
+    public List<CameraResolution> AvailableResolutions
+    {
+      get => this._availableResolutions;
+      set
+      {
+        if (this._availableResolutions == value)
+        {
+          return;
+        }
+
+        this._availableResolutions = value;
+        this.OnPropertyChanged(nameof(AvailableResolutions));
+      }
+    }
+
+    public CameraResolution SelectedResolution
+    {
+      get => this._selectedResolution;
+      set
+      {
+        if (this._selectedResolution == value)
+        {
+          return;
+        }
+
+        this._selectedResolution = value;
+        this.OnPropertyChanged(nameof(SelectedResolution));
       }
     }
 
@@ -44,20 +76,21 @@ namespace ZXingNetMobTest
       Console.WriteLine($"Barcode captured: {result.Text}");
       this.BarcodeResult = result.Text;
       OnPropertyChanged(nameof(BarcodeResult));
-      this.BarcodeScannerView.IsScanning = false;
+      //this.BarcodeScannerView.IsScanning = false;
     }
 
-    private async void Button_ClickedAsync(object sender, EventArgs e)
+    private async void ButtonScan_ClickedAsync(object sender, EventArgs e)
     {
-      this.BarcodeScannerView.Options.CameraResolutionSelector = this.SelectHighestResolutionMatchingDisplayAspectRatio;
-      this.BarcodeScannerView.IsScanning = true;
+      //this.BarcodeScannerView.Options.CameraResolutionSelector = this.SelectHighestResolutionMatchingDisplayAspectRatio;
+      //this.BarcodeScannerView.IsScanning = true;
 
+      await this.Navigation.PushAsync(new CustomScanPage());
 
-      //var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+      //var scanner = new MobileBarcodeScanner();
       //var result = await scanner.Scan();
       //if (result is null) return;
 
-      //BarcodeResult = result.Text;
+      //this.BarcodeResult = result.Text;
       //Console.WriteLine("Scanned Barcode: " + result.Text);
     }
 
@@ -67,11 +100,23 @@ namespace ZXingNetMobTest
       {
         throw new ArgumentNullException(nameof(availableResolutions));
       }
-     
+
+      this.AvailableResolutions = availableResolutions;
+      this.OnPropertyChanged(nameof(AvailableResolutions));
+
       var pixels = availableResolutions.Select(r => r.Width * r.Height).ToArray();
       var seed = Pixels * 2000000;
       // The closest to 2megapixels
       var bestPerformanceIndex = FindIndexOfCloserToNumber((int)seed, pixels);
+
+      if (this.SelectedResolution != null)
+      {
+        return this.SelectedResolution;
+      }
+      else
+      {
+        this.SelectedResolution = availableResolutions[bestPerformanceIndex];
+      }
 
       return availableResolutions[bestPerformanceIndex];
     }
