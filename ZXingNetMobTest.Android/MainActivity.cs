@@ -15,7 +15,6 @@ namespace ZXingNetMobTest.Droid
     {
       base.OnCreate(savedInstanceState);
 
-
       ZXing.Net.Mobile.Forms.Android.Platform.Init();
       //MobileBarcodeScanner.Initialize(Application);
       Xamarin.Essentials.Platform.Init(this, savedInstanceState);
