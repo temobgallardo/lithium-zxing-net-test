@@ -16,6 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ZXing.Net.Mobile\ZXing.Net.Mobile.Forms\ZXing.Net.Mobile.Forms.csproj" />
+    <ProjectReference Include="..\..\ZXing.Net.Mobile\ZXing.Net.Mobile\ZXing.Net.Mobile.csproj" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
     <Reference Include="FastAndroidCamera">
       <HintPath>..\FastAndroidCamera.dll</HintPath>
     </Reference>
@@ -28,5 +33,5 @@
     <Reference Include="ZXingNetMobile">
       <HintPath>..\ZXingNetMobile.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
