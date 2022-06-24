@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ZXingNetMobTest.CustomScannerWithXaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand">
+            <zxing:ZXingScannerView Grid.Column="0"
+                                    Grid.Row="0"
+                                    x:Name="BarcodeScannerView"
+                                    OnScanResult="BarcodeScannerView_OnScanResult"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand" />
+
+            <zxing:ZXingDefaultOverlay Grid.Column="0"
+                                       Grid.Row="0"
+                                       x:Name="BarcodeScannerOverlay"
+                                       ShowFlashButton="True"
+                                       Opacity="0.9" />
+
+            <Picker VerticalOptions="End"
+                    HorizontalOptions="Center" />
+            
+            <Label Text="Hello Xamarin.Forms!"
+                   Margin="80,10,100,10"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center" />
+      </Grid>
+  </ContentPage.Content>
+</ContentPage>
