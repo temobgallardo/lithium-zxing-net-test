@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ZXing.Net.Mobile\ZXing.Net.Mobile.Forms\ZXing.Net.Mobile.Forms.csproj" />
-    <ProjectReference Include="..\..\ZXing.Net.Mobile\ZXing.Net.Mobile\ZXing.Net.Mobile.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="CustomScannerWithXaml.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

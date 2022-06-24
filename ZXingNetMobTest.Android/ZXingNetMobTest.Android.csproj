@@ -45,9 +45,6 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FastAndroidCamera">
-      <HintPath>..\FastAndroidCamera.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,9 +52,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors" />
-    <Reference Include="zxing">
-      <HintPath>..\zxing.dll</HintPath>
-    </Reference>
     <Reference Include="ZXing.Net.Mobile.Forms">
       <HintPath>..\ZXing.Net.Mobile.Forms.dll</HintPath>
     </Reference>
