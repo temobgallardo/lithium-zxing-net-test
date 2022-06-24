@@ -15,6 +15,7 @@ namespace ZXingNetMobTest
     private readonly ZXingScannerView zxing;
     private readonly ZXingDefaultOverlay overlay;
     private readonly Picker picker;
+    private readonly Grid grid;
 
     public BarcodeScannerExceptionWhenPickerDisplayed() : base()
     {
@@ -48,13 +49,13 @@ namespace ZXingNetMobTest
       {
         zxing.IsTorchOn = !zxing.IsTorchOn;
       };
-      var grid = new Grid
+      grid = new Grid
       {
         VerticalOptions = LayoutOptions.FillAndExpand,
         HorizontalOptions = LayoutOptions.FillAndExpand,
       };
 
-      var picker = new Picker()
+      picker = new Picker()
       {
         Title = "Select a resolution",
         WidthRequest = 100,
