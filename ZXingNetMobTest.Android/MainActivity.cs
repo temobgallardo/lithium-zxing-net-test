@@ -1,10 +1,7 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.OS;
-using ZXing.Mobile;
+using Android.Runtime;
 
 namespace ZXingNetMobTest.Droid
 {
@@ -16,11 +13,11 @@ namespace ZXingNetMobTest.Droid
       base.OnCreate(savedInstanceState);
 
       ZXing.Net.Mobile.Forms.Android.Platform.Init();
-      //MobileBarcodeScanner.Initialize(Application);
       Xamarin.Essentials.Platform.Init(this, savedInstanceState);
       global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
       LoadApplication(new App());
     }
+
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
     {
       Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
