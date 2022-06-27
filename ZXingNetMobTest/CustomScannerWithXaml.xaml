@@ -19,13 +19,24 @@
                                        ShowFlashButton="True"
                                        Opacity="0.9" />
 
-            <Picker VerticalOptions="End"
-                    HorizontalOptions="Center" />
-            
             <Label Text="Hello Xamarin.Forms!"
                    Margin="80,10,100,10"
                    VerticalOptions="Start"
                    HorizontalOptions="Center" />
-      </Grid>
+
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center" 
+                         VerticalOptions="End">
+
+                <Button Text="Lower Resolution" 
+                        Clicked="LowerResolution"/>
+                <Button Text="Recommended Resolution" 
+                        Clicked="SelectRecommendedResolution"/>
+                <Button Text="Increase Resolution" 
+                        Clicked="IncreaseResolution"/>
+
+            </StackLayout>
+            
+        </Grid>
   </ContentPage.Content>
 </ContentPage>

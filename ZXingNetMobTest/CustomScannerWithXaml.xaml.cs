@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,11 +13,19 @@ namespace ZXingNetMobTest
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class CustomScannerWithXaml : ContentPage
   {
+    private int selectedResolutionIndex;
+    private int numberOfResolutions;
+    private bool recommendedSelected = true;
+    private Stopwatch timeTryingToScan = new Stopwatch();
+
     public CustomScannerWithXaml()
     {
       InitializeComponent();
 
       this.BarcodeScannerView.Options.CameraResolutionSelector += SelectResolutionMatchingDisplayAspectRatio;
+
+
+      this.BindingContext = this;
     }
 
     protected override void OnAppearing()
@@ -23,11 +33,15 @@ namespace ZXingNetMobTest
       base.OnAppearing();
 
       this.BarcodeScannerView.IsScanning = true;
+
+      this.timeTryingToScan.Start();
     }
 
     protected override void OnDisappearing()
     {
       this.BarcodeScannerView.IsScanning = false;
+
+      this.timeTryingToScan.Stop();
 
       base.OnDisappearing();
     }
@@ -41,6 +55,17 @@ namespace ZXingNetMobTest
         throw new ArgumentNullException(nameof(availableResolutions));
       }
 
+      //if (this.timeTryingToScan.ElapsedMilliseconds > 5000)
+      //{
+      //  //if (selectedResolutionIndex)
+      //  return availableResolutions[selectedResolutionIndex--];
+      //}
+
+      if (!this.recommendedSelected)
+      {
+        return availableResolutions[this.selectedResolutionIndex];
+      }
+
       // There is no reading issues on iOS, returning highest resolution
       if (DeviceInfo.Platform == DevicePlatform.iOS)
       {
@@ -50,7 +75,7 @@ namespace ZXingNetMobTest
       // Capturing input data in native resolution may create massive data which will slow the barcode reading. Android recommends around 2 Megapixels.
       // Selecting a resolution < 2 Mega Pixels for better performance. The smaller the fastest but accuracy get compromized.
       // TODO: [EHS] Very slow for Code38 and 128. At ~640*500 it is much faster but may affect some users.
-      int seed = Convert.ToInt32(1280 * 720);
+      int seed = 1280 * 720;
 
       var resolutionsLessThan2MegasPixels = availableResolutions.Where(r => r.Width * r.Height <= seed).ToList();
 
@@ -121,6 +146,35 @@ namespace ZXingNetMobTest
         // Navigate away
         //await Navigation.PopAsync();
       });
+    }
+
+    private void LowerResolution(object sender, EventArgs e)
+    {
+      this.selectedResolutionIndex--;
+
+      if (this.selectedResolutionIndex < 0)
+      {
+        this.selectedResolutionIndex = this.numberOfResolutions - 1;
+      }
+
+      this.recommendedSelected = false;
+    }
+
+    private void IncreaseResolution(object sender, EventArgs e)
+    {
+      this.selectedResolutionIndex++;
+
+      if (this.selectedResolutionIndex > this.numberOfResolutions - 1)
+      {
+        this.selectedResolutionIndex = 0;
+      }
+
+      this.recommendedSelected = false;
+    }
+
+    private void SelectRecommendedResolution(object sender, EventArgs e)
+    {
+      this.recommendedSelected = true;
     }
   }
 }
