@@ -26,9 +26,13 @@ namespace ZXingNetMobTest.iOS
       Window.MakeKeyAndVisible();
 
       ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
+
       Xamarin.Essentials.Platform.Init(() => Window.RootViewController);
       global::Xamarin.Forms.Forms.Init();
       this.LoadApplication(new App());
+
+      BarcodeScanner.Mobile.XamarinForms.iOS.Initializer.Init();
 
       return base.FinishedLaunching(app, launchOptions);
     }
