@@ -58,6 +58,8 @@ namespace ZXingNetMobTest
       picker = new Picker()
       {
         Title = "Select a resolution",
+        TitleColor = Color.White,
+        TextColor = Color.White,
         WidthRequest = 100,
         HeightRequest = 50,
         HorizontalOptions = LayoutOptions.Center,
