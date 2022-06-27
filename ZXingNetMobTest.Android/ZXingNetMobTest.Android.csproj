@@ -60,6 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BarcodeScanner.Mobile.XamarinForms">
+      <Version>6.3.0.21</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2478" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="ZXing.Net.Mobile.Forms">

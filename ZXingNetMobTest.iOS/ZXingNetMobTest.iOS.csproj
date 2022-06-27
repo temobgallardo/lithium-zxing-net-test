@@ -80,6 +80,8 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>5.0.0.2478</Version>
     </PackageReference>
+	<PackageReference Include="BarcodeScanner.Mobile.XamarinForms" Version="6.3.0.21" />
+	<PackageReference Include="BarcodeScanner.Mobile.Core" Version="6.3.0.21" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -129,14 +131,6 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ZXing.Net.Mobile\ZXing.Net.Mobile.Forms\ZXing.Net.Mobile.Forms.csproj">
-      <Project>{2bd86511-5786-4608-abb0-0908b14f02d6}</Project>
-      <Name>ZXing.Net.Mobile.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ZXing.Net.Mobile\ZXing.Net.Mobile\ZXing.Net.Mobile.csproj">
-      <Project>{41e52cbc-93d8-41a3-9a63-95e1820a2690}</Project>
-      <Name>ZXing.Net.Mobile</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZXingNetMobTest\ZXingNetMobTest.csproj">
       <Project>{36fecd8a-cbe3-45e8-82ac-06cd9e512dda}</Project>
       <Name>ZXingNetMobTest</Name>
