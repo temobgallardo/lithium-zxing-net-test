@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gv="clr-namespace:BarcodeScanner.Mobile.XamarinForms;assembly=BarcodeScanner.Mobile.XamarinForms"
+             x:Class="ZXingNetMobTest.BarcodeScannerMobilePoC">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         Grid.Row="0">
+                <Button x:Name="CancelButton"
+                        Text="Cancel"
+                        BackgroundColor="#FF0000"
+                        TextColor="White"
+                        Clicked="CancelButton_Clicked"
+                        HorizontalOptions="StartAndExpand"
+                        CornerRadius="0" />
+                <Button x:Name="FlashlightButton"
+                        Text="Flashlight"
+                        BackgroundColor="#0075FF"
+                        TextColor="White"
+                        Clicked="FlashlightButton_Clicked"
+                        HorizontalOptions="CenterAndExpand"
+                        CornerRadius="0" />
+                <Button x:Name="SwitchCameraButton"
+                        Text="Switch Camera"
+                        BackgroundColor="Brown"
+                        TextColor="White"
+                        Clicked="SwitchCameraButton_Clicked"
+                        HorizontalOptions="EndAndExpand"
+                        CornerRadius="0" />
+            </StackLayout>
+            <!--VirbationOnDetected: Indicate the device will vibrate or not when detected barcode, default is True
+		 TorchOn: Indicate the torch will on or not when the view appear, default is False
+		 IsScanning : Indicate whether the device will start scanning after it is opened, default is True
+		 RequestedFPS: Affect Android only, remove it if you want a default value (https://developers.google.com/android/reference/com/google/android/gms/vision/CameraSource.Builder.html#public-camerasource.builder-setrequestedfps-float-fps)
+		 ScanInterval: Scan interval for iOS, default is 500ms and the minimum is 100ms, please be reminded that double scanning may be occurred if it is too small
+		 -->
+            <gv:CameraView HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"
+                           OnDetected="CameraView_OnDetected"
+                           Grid.Row="1"
+                           TorchOn="True"
+                           VibrationOnDetected="True"
+                           ScanInterval="100"
+                           x:Name="BarcodeScannCamera" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
