@@ -81,17 +81,7 @@ namespace ZXingNetMobTest
 
     private async void ButtonScan_ClickedAsync(object sender, EventArgs e)
     {
-      //this.BarcodeScannerView.Options.CameraResolutionSelector = this.SelectHighestResolutionMatchingDisplayAspectRatio;
-      //this.BarcodeScannerView.IsScanning = true;
-
       await this.Navigation.PushAsync(new CustomScanPage());
-
-      //var scanner = new MobileBarcodeScanner();
-      //var result = await scanner.Scan();
-      //if (result is null) return;
-
-      //this.BarcodeResult = result.Text;
-      //Console.WriteLine("Scanned Barcode: " + result.Text);
     }
 
     private CameraResolution SelectHighestResolutionMatchingDisplayAspectRatio(List<CameraResolution> availableResolutions)
@@ -121,6 +111,19 @@ namespace ZXingNetMobTest
       return availableResolutions[bestPerformanceIndex];
     }
 
+
+    private CameraResolution GetCameraResolutions(List<CameraResolution> availableResolutions)
+    {
+      if (availableResolutions == null || availableResolutions.Count < 1)
+      {
+        throw new ArgumentNullException(nameof(availableResolutions));
+      }
+
+      //this.AvailableResolutions = availableResolutions;
+      
+      return availableResolutions[0];
+    }
+
     /// <summary>
     /// Compute what is the index containing the closer element to a given value
     /// </summary>
@@ -147,6 +150,21 @@ namespace ZXingNetMobTest
       }
 
       return -1;
+    }
+
+    private async void ScanBarcodeScannerExceptionPicker(object sender, EventArgs e)
+    {
+      await this.Navigation.PushAsync(new BarcodeScannerExceptionWhenPickerDisplayed());
+    }
+
+    private async void ScanCustomScannerWithXaml(object sender, EventArgs e)
+    {
+      await this.Navigation.PushAsync(new CustomScannerWithXaml());
+    }
+
+    private async void BarcodeScannerMobilePoC(object sender, EventArgs e)
+    {
+      await this.Navigation.PushAsync(new BarcodeScannerMobilePoC());
     }
   }
 }

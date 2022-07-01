@@ -21,16 +21,22 @@
                FontSize="Medium"
                Padding="30,10,30,10" />
 
-        <Button Text="Scan"
+        <Button Text="Scan Custom Page"
                 Clicked="ButtonScan_ClickedAsync" />
-
+        <Button Text="BarcodeScannerExceptionWhenPickerDisplayed"
+                Clicked="ScanBarcodeScannerExceptionPicker" />
+        <Button Text="Scan Custom Page with Xaml"
+                Clicked="ScanCustomScannerWithXaml" />
+        <Button Text="Scan with BarcodeScanner.Mobile"
+                Clicked="BarcodeScannerMobilePoC" />
+        
         <!--<Picker Title="Select a resolution"
                 SelectedItem="{Binding SelectedResolution}"
-                ItemsSource="{Binding AvailableResolutions}" />
+                ItemsSource="{Binding AvailableResolutions}" />-->
 
-        <Slider Value="{Binding Pixels}" />
+        <!--<Slider Value="{Binding Pixels}" />-->
 
-        <zxing:ZXingScannerView x:Name="BarcodeScannerView"
+        <!--<zxing:ZXingScannerView x:Name="BarcodeScannerView"
                                 Opacity="0.9"
                                 OnScanResult="OnScanResult" />-->
     </StackLayout>
