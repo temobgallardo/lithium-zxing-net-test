@@ -122,7 +122,7 @@ namespace ZXingNetMobTest
         HorizontalOptions = LayoutOptions.FillAndExpand,
       };
 
-      zxing.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
+      zxing.Options.CameraResolutionSelector = this.SetAvailableResolutions;
 
       var picker = new Picker()
       {
@@ -186,11 +186,13 @@ namespace ZXingNetMobTest
         HorizontalOptions = LayoutOptions.FillAndExpand,
       };
 
-      zxing.Options.CameraResolutionSelector = this.SelectResolutionMatchingDisplayAspectRatio;
+      //zxing.Options.CameraResolutionSelector = this.SelectResolutionMatchingDisplayAspectRatio;
 
       var picker = new Picker()
       {
         Title = "Select a resolution",
+        TitleColor = Color.White,
+        TextColor = Color.White,
         ItemsSource = this.AvailableResolutionsString,
         WidthRequest = 100,
         HeightRequest = 50,
